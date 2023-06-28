@@ -152,7 +152,9 @@ def parse_commands(module, warnings):
             command = item["command"]
         except Exception:
             command = item
-        if module.check_mode and not (command.startswith("show") or command.startswith("admin show")):
+        if module.check_mode and not (
+            command.startswith("show") or command.startswith("admin show")
+        ):
             warnings.append(
                 "Only show commands are supported when using check mode, not "
                 "executing %s" % command,
