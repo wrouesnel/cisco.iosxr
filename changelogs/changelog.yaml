@@ -610,3 +610,70 @@ releases:
       - fix_l3_interface.yaml
       - healthcheck_pr_1.yml
     release_date: "2023-05-29"
+  6.0.0:
+    changes:
+      bugfixes:
+        - Add support to delete specific static route entry.(https://github.com/ansible-collections/cisco.iosxr/issues/375)
+        - l2_interfaces Fix issue in qvlan parsing.(https://github.com/ansible-collections/cisco.iosxr/issues/403)
+      deprecated_features:
+        - Deprecated iosxr_bgp module in favor of iosxr_bgp_global,iosxr_bgp_neighbor_address_family
+          and iosxr_bgp_address_family.
+        - iosxr_l2_interfaces - deprecate q_vlan with qvlan which allows vlans in str
+          format e.g "any"
+      doc_changes:
+        - iosxr_facts - Add ansible_net_cpu_utilization.
+      minor_changes:
+        - Add iosxr_bgp_templates module (https://github.com/ansible-collections/cisco.iosxr/issues/341).
+        - iosxr_facts - Add CPU utilization.
+        - iosxr_l2_interfaces - fix issue in supporting multiple iosxr version. (https://github.com/ansible-collections/cisco.iosxr/issues/379).
+    fragments:
+      - bgp_templates.yaml
+      - bugfix_l2_interface.yaml
+      - cpu_util.yaml
+      - delete_static_route.yaml
+      - fix_l2_interface.yaml
+      - fix_l2_interface_qvlan.yaml
+      - gha_release.yml
+      - remove_old_modules.yaml
+    modules:
+      - description: Manages BGP templates resource module.
+        name: iosxr_bgp_templates
+        namespace: ""
+    release_date: "2023-07-05"
+  6.0.1:
+    changes:
+      bugfixes:
+        - Fix issue in deletion of ospf.(https://github.com/ansible-collections/cisco.iosxr/issues/425)
+        - Fix issue in facts gathering for Interfaces RM.(https://github.com/ansible-collections/cisco.iosxr/issues/417)
+        - Fix issue in lacp and lldp_global of local variable commands.
+        - Support overridden state in bgp_global,lacp and lldp_global module.(https://github.com/ansible-collections/cisco.iosxr/issues/386)
+      doc_changes:
+        - Fix grpc sub plugin documentation.
+        - Update ospf_interfaces examples
+        - Update ospfv2 examples
+        - Update ospfv3 examples
+    fragments:
+      - Fix_interface_facts.yaml
+      - codecov_pr.yml
+      - fix_ospfv3.yaml
+      - sub_plugin_doc.yml
+      - support_overridden.yaml
+      - update_ospfv2_docs.yaml
+    release_date: "2023-09-07"
+  6.1.0:
+    changes:
+      doc_changes:
+        - Fix docs for prefix_lists RM.
+        - iosxr_acls - update examples and use YAML output in them for better readibility.
+      minor_changes:
+        - iosxr_config - Relax restrictions on I(src) parameter so it can be used more
+          like I(lines). (https://github.com/ansible-collections/cisco.iosxr/issues/343).
+        - iosxr_config Add updates option in return value(https://github.com/ansible-collections/cisco.iosxr/issues/438).
+    fragments:
+      - Fix_iosxr_user_tests.yaml
+      - acls.yaml
+      - fix_bindep.yaml
+      - fix_config_module.yaml
+      - fix_iosxr_config.yaml
+      - prefix_list_doc.yaml
+    release_date: "2023-10-30"

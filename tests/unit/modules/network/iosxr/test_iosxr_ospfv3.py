@@ -43,11 +43,6 @@ class TestIosxrOspfV3Module(TestIosxrModule):
         )
         self.get_resource_connection_facts = self.mock_get_resource_connection_facts.start()
 
-        self.mock_edit_config = patch(
-            "ansible_collections.cisco.iosxr.plugins.module_utils.network.iosxr.providers.providers.CliProvider.edit_config",
-        )
-        self.edit_config = self.mock_edit_config.start()
-
         self.mock_execute_show_command = patch(
             "ansible_collections.cisco.iosxr.plugins.module_utils.network.iosxr.facts.ospfv3.ospfv3."
             "Ospfv3Facts.get_ospfv3_data",
@@ -58,7 +53,6 @@ class TestIosxrOspfV3Module(TestIosxrModule):
         super(TestIosxrOspfV3Module, self).tearDown()
         self.mock_get_resource_connection_config.stop()
         self.mock_get_resource_connection_facts.stop()
-        self.mock_edit_config.stop()
         self.mock_get_config.stop()
         self.mock_load_config.stop()
         self.mock_execute_show_command.stop()
@@ -180,10 +174,7 @@ class TestIosxrOspfV3Module(TestIosxrModule):
         )
 
         commands = [
-            "router ospfv3 30",
-            "no cost 2",
-            "no default-metric 10",
-            "no area 11 default-cost 5",
+            "no router ospfv3 30",
             "router ospfv3 40",
             "cost 2",
             "default-metric 10",
@@ -218,10 +209,7 @@ class TestIosxrOspfV3Module(TestIosxrModule):
             ),
         )
         commands = [
-            "router ospfv3 30",
-            "no cost 2",
-            "no default-metric 10",
-            "no area 11 default-cost 5",
+            "no router ospfv3 30",
         ]
         result = self.execute_module(changed=True)
         self.assertEqual(sorted(result["commands"]), sorted(commands))

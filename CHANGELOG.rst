@@ -4,6 +4,73 @@ Cisco Iosxr Collection Release Notes
 
 .. contents:: Topics
 
+
+v6.1.0
+======
+
+Minor Changes
+-------------
+
+- iosxr_config - Relax restrictions on I(src) parameter so it can be used more like I(lines). (https://github.com/ansible-collections/cisco.iosxr/issues/343).
+- iosxr_config Add updates option in return value(https://github.com/ansible-collections/cisco.iosxr/issues/438).
+
+Documentation Changes
+---------------------
+
+- Fix docs for prefix_lists RM.
+- iosxr_acls - update examples and use YAML output in them for better readibility.
+
+v6.0.1
+======
+
+Bugfixes
+--------
+
+- Fix issue in deletion of ospf.(https://github.com/ansible-collections/cisco.iosxr/issues/425)
+- Fix issue in facts gathering for Interfaces RM.(https://github.com/ansible-collections/cisco.iosxr/issues/417)
+- Fix issue in lacp and lldp_global of local variable commands.
+- Support overridden state in bgp_global,lacp and lldp_global module.(https://github.com/ansible-collections/cisco.iosxr/issues/386)
+
+Documentation Changes
+---------------------
+
+- Fix grpc sub plugin documentation.
+- Update ospf_interfaces examples
+- Update ospfv2 examples
+- Update ospfv3 examples
+
+v6.0.0
+======
+
+Minor Changes
+-------------
+
+- Add iosxr_bgp_templates module (https://github.com/ansible-collections/cisco.iosxr/issues/341).
+- iosxr_facts - Add CPU utilization.
+- iosxr_l2_interfaces - fix issue in supporting multiple iosxr version. (https://github.com/ansible-collections/cisco.iosxr/issues/379).
+
+Deprecated Features
+-------------------
+
+- Deprecated iosxr_bgp module in favor of iosxr_bgp_global,iosxr_bgp_neighbor_address_family and iosxr_bgp_address_family.
+- iosxr_l2_interfaces - deprecate q_vlan with qvlan which allows vlans in str format e.g "any"
+
+Bugfixes
+--------
+
+- Add support to delete specific static route entry.(https://github.com/ansible-collections/cisco.iosxr/issues/375)
+- l2_interfaces Fix issue in qvlan parsing.(https://github.com/ansible-collections/cisco.iosxr/issues/403)
+
+Documentation Changes
+---------------------
+
+- iosxr_facts - Add ansible_net_cpu_utilization.
+
+New Modules
+-----------
+
+- iosxr_bgp_templates - Manages BGP templates resource module.
+
 v5.0.3
 ======
 
