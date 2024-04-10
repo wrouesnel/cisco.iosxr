@@ -112,25 +112,25 @@ Examples
     # Collect only the config and default facts
     - cisco.iosxr.iosxr_facts:
         gather_subset:
-        - config
+          - config
 
     # Do not collect hardware facts
     - cisco.iosxr.iosxr_facts:
         gather_subset:
-        - '!hardware'
+          - '!hardware'
 
     # Collect only the lacp facts
     - cisco.iosxr.iosxr_facts:
         gather_subset:
-        - '!all'
-        - '!min'
+          - '!all'
+          - '!min'
         gather_network_resources:
-        - lacp
+          - lacp
 
     # Do not collect lacp_interfaces facts
     - cisco.iosxr.iosxr_facts:
         gather_network_resources:
-        - '!lacp_interfaces'
+          - '!lacp_interfaces'
 
     # Collect lacp and minimal default facts
     - cisco.iosxr.iosxr_facts:
@@ -140,11 +140,11 @@ Examples
     # Collect only the interfaces facts
     - cisco.iosxr.iosxr_facts:
         gather_subset:
-        - '!all'
-        - '!min'
+          - '!all'
+          - '!min'
         gather_network_resources:
-        - interfaces
-        - l2_interfaces
+          - interfaces
+          - l2_interfaces
 
 
 
@@ -381,7 +381,7 @@ Common return values are documented `here <https://docs.ansible.com/ansible/late
                 </td>
                 <td>when interfaces is configured</td>
                 <td>
-                            <div>The list of LLDP neighbors from the remote device</div>
+                            <div>The list of LLDP and CDP neighbors from the remote device. If both, CDP and LLDP neighbor data is present on one port, CDP is preferred.</div>
                     <br/>
                 </td>
             </tr>

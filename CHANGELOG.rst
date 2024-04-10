@@ -5,6 +5,61 @@ Cisco Iosxr Collection Release Notes
 .. contents:: Topics
 
 
+v8.0.0
+======
+
+Major Changes
+-------------
+
+- This release removes previously deprecated module and attributes from this collection. Please refer to the **Removed Features** section for details.
+
+Removed Features (previously deprecated)
+----------------------------------------
+
+- Remove deprecated iosxr_logging module which is replaced with iosxr_logging_global resource module.
+
+v7.2.0
+======
+
+Minor Changes
+-------------
+
+- Add missing options in afi and safi in address-family of bgp_templates RM.
+
+Bugfixes
+--------
+
+- Fix 'afi' value in bgp_templates RM to valid values.
+
+v7.1.0
+======
+
+Minor Changes
+-------------
+
+- iosxr_facts - Add cdp neighbors in ansible_net_neighbors dictionary (https://github.com/ansible-collections/cisco.iosxr/pull/457).
+
+v7.0.0
+======
+
+Release Summary
+---------------
+
+Starting from this release, the minimum `ansible-core` version this collection requires is `2.14.0`. The last known version compatible with ansible-core<2.14 is `v6.1.1`.
+
+Major Changes
+-------------
+
+- Bumping `requires_ansible` to `>=2.14.0`, since previous ansible-core versions are EoL now.
+
+v6.1.1
+======
+
+Bugfixes
+--------
+
+- Fix issue in gathered state of interfaces and l3_interfaces RMs(https://github.com/ansible-collections/cisco.iosxr/issues/452, https://github.com/ansible-collections/cisco.iosxr/issues/451)
+
 v6.1.0
 ======
 

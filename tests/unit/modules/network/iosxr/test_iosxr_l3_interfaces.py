@@ -22,8 +22,9 @@ from __future__ import absolute_import, division, print_function
 
 __metaclass__ = type
 
+from unittest.mock import patch
+
 from ansible_collections.cisco.iosxr.plugins.modules import iosxr_l3_interfaces
-from ansible_collections.cisco.iosxr.tests.unit.compat.mock import patch
 from ansible_collections.cisco.iosxr.tests.unit.modules.utils import set_module_args
 
 from .iosxr_module import TestIosxrModule, load_fixture
@@ -67,14 +68,14 @@ class TestIosxrL3InterfacesModule(TestIosxrModule):
         self.mock_load_config.stop()
         self.mock_execute_show_command.stop()
 
-    def _prepare(self):
+    def _prepare(self, l3_interface_config):
         def load_from_file(*args, **kwargs):
-            return load_fixture("iosxr_l3_interface_config.cfg")
+            return load_fixture(l3_interface_config)
 
         self.execute_show_command.side_effect = load_from_file
 
     def test_iosxr_l3_interfaces_merged_idempotent(self):
-        self._prepare()
+        self._prepare("iosxr_l3_interface_config.cfg")
         set_module_args(
             dict(
                 config=[
@@ -128,7 +129,7 @@ class TestIosxrL3InterfacesModule(TestIosxrModule):
         self.assertEqual(sorted(result["commands"]), sorted(commands))
 
     def test_iosxr_l3_interfaces_replaced(self):
-        self._prepare()
+        self._prepare("iosxr_l3_interface_config.cfg")
         set_module_args(
             dict(
                 config=[
@@ -153,7 +154,7 @@ class TestIosxrL3InterfacesModule(TestIosxrModule):
         self.assertEqual(sorted(result["commands"]), sorted(commands))
 
     def test_iosxr_l3_interfaces_deleted(self):
-        self._prepare()
+        self._prepare("iosxr_l3_interface_config.cfg")
         set_module_args(dict(state="deleted"))
 
         commands = [
@@ -228,7 +229,7 @@ class TestIosxrL3InterfacesModule(TestIosxrModule):
 
     def test_iosxr_l3_interfaces_overridden(self):
         self.maxDiff = None
-        self._prepare()
+        self._prepare("iosxr_l3_interface_config.cfg")
         set_module_args(
             dict(
                 config=[
@@ -253,3 +254,13 @@ class TestIosxrL3InterfacesModule(TestIosxrModule):
 
         result = self.execute_module(changed=True)
         self.assertEqual(sorted(result["commands"]), sorted(commands))
+
+    def test_iosxr_3_interfaces_gathered(self):
+        self._prepare("iosxr_interface_gathered.cfg")
+        set_module_args(dict(state="gathered"))
+        result = self.execute_module(changed=False)
+        gathered = [
+            {"name": "GigabitEthernet0/0/0/5", "ipv4": [{"address": "10.255.2.9/30"}]},
+            {"name": "GigabitEthernet0/0/0/6", "ipv4": [{"address": "10.255.2.17/30"}]},
+        ]
+        self.assertEqual(gathered, result["gathered"])
